@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../../../App.css';
 import { TextField, Button, Box, Typography, Paper, Grid, MenuItem } from '@mui/material';
 import { useAuth } from '../../../../Context/AuthContext';
 import skillService from '../../../../services/skill.service';

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../../App.css'
 import { Link, useLocation } from 'react-router';
 import {
   List,
@@ -46,6 +47,7 @@ function AdminMenu() {
               selected={location.pathname === item.link}
               className="admin-menu-item"
               sx={{
+                color: location.pathname === item.link ? 'black' : '#253e6cdb',
                 '&.Mui-selected': {
                   bgcolor: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
                   '&:hover': {
