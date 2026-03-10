@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, IconButton } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { useAuth } from '../../../../Context/AuthContext';
-import { getAllAdmins, updateAdmin, deleteAdmin } from '../../../../services/admin.service';
+import adminService from '../../../../services/admin.service';
 
 const AdminList = () => {
   const [admins, setAdmins] = useState([]);
@@ -19,7 +19,7 @@ const AdminList = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await getAllAdmins(auth.admin_token);
+      const response = await adminService.getAllAdmins(auth.admin_token);
       if (response.ok) {
         const data = await response.json();
         setAdmins(data.data || []);
@@ -46,7 +46,7 @@ const AdminList = () => {
 
   const handleEditSave = async () => {
     try {
-      const response = await updateAdmin(selectedAdmin.admin_id, editForm);
+      const response = await adminService.updateAdmin(selectedAdmin.admin_id, editForm);
       if (response.ok) {
         setEditDialogOpen(false);
         fetchAdmins(); // Refresh list
@@ -61,7 +61,7 @@ const AdminList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this admin?')) {
       try {
-        const response = await deleteAdmin(id, auth.admin_token);
+        const response = await adminService.deleteAdmin(id, auth.admin_token);
         if (response.ok) {
           fetchAdmins(); // Refresh list
         } else {

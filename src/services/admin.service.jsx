@@ -1,5 +1,6 @@
 // Import from env
-const api_url = process.env.REACT_APP_API_URL;
+// const api_url = process.env.REACT_APP_API_URL;
+const api_url = "http://localhost:1011";
 
 // A function to send post request to create a new admin
 const createAdmin = async (formData) => {
@@ -53,12 +54,14 @@ const deleteAdmin = async (id, token) => {
   return response;
 };
 
-// Export all the functions
+
+
+// Also provide a default export for convenience
 const AdminService = {
   createAdmin,
   getAllAdmins,
   getAdmin,
-  deleteAdmin,
   updateAdmin,
+  deleteAdmin
 };
 export default AdminService;

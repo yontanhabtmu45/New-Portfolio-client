@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import './App.css'
 
 // import Home from "./markup/pages/Home";
-import Dashboard from "./markup/pages/Admin/Dashboard";
-import AdminList from "./markup/components/Admin/AdminList/AdminList"
+import DashboardPage from "./markup/pages/Admin/DashboardPage";
+import AdminsPage from "./markup/pages/Admin/AdminsPage"
 
 import privateAuthRoute from "./markup/components/Auth/PrivateAuthRoute"
 
@@ -13,9 +13,8 @@ function App() {
   return (
     <Routes>
       {/* <Route path="/" element={<Home/>}/> */}
-      <Route path="/" element={<Dashboard/>}/>
-      <Route path="/admin" element={<Dashboard/>}/>
-      <Route path="/admin/admins" element={<AdminList/>} />
+      <Route path="/admin" element={<DashboardPage/>}/>
+      <Route path="/admin/admins" element={<AdminsPage/>} />
     </Routes>
   )
 }

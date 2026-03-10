@@ -1,9 +1,9 @@
-// Import the DAshboard component
-import Dashboard from '../../components/Admin/Dashboard/Dashboard';
-// Import the AdminMenu component 
+// Import the AdminList component
+import AdminList from '../../components/Admin/AdminList/AdminList';
+// Import the AdminMenu component
 import AdminMenu from '../../components/Admin/AdminMenu/AdminMenu';
 
-function AddVehicle() {
+function AdminsPage() {
   return (
     <div>
       <div className="container-fluid admin-pages">
@@ -12,7 +12,7 @@ function AddVehicle() {
             <AdminMenu />
           </div>
           <div className="col-md-9 admin-right-side">
-            <Dashboard />
+            <AdminList />
           </div>
         </div>
       </div>
@@ -20,4 +20,4 @@ function AddVehicle() {
   );
 }
 
-export default AddVehicle;
+export default AdminsPage;
