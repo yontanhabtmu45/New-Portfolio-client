@@ -124,7 +124,7 @@ const SkillList = () => {
       </Typography>
       <TableContainer component={Paper}>
         <Table>
-          <TableHead>
+          <TableHead sx={{bgcolor: "#cdc8c8ea"}}>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Level</TableCell>
@@ -133,9 +133,9 @@ const SkillList = () => {
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
             {skills.map((skill) => (
-              <TableRow key={skill.skill_id}>
+              <TableRow key={skill.skill_id} >
                 <TableCell>{skill.skill_name}</TableCell>
                 <TableCell>{skill.skill_level}</TableCell>
                 <TableCell>{skill.category}</TableCell>

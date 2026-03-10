@@ -89,7 +89,7 @@ const AdminList = () => {
       </Typography>
       <TableContainer component={Paper}>
         <Table>
-          <TableHead>
+          <TableHead sx={{bgcolor: "#cdc8c8ea"}}>
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell>Name</TableCell>
@@ -100,7 +100,7 @@ const AdminList = () => {
           </TableHead>
           <TableBody>
             {admins.map((admin) => (
-              <TableRow key={admin.admin_id}>
+              <TableRow key={admin.admin_id} >
                 <TableCell>{admin.admin_id}</TableCell>
                 <TableCell>{admin.admin_name}</TableCell>
                 <TableCell>{admin.admin_email}</TableCell>

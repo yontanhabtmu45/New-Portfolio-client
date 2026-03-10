@@ -66,8 +66,8 @@ function Dashboard() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Box sx={{ mb: 4 }}>
+    <Container maxWidth="lg" sx={{ mb: 4 }}>
+      <Box sx={{ mb: 3 }}>
         <Typography variant="h3" component="h1" gutterBottom sx={{ color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
           Admin Dashboard
         </Typography>
@@ -82,6 +82,7 @@ function Dashboard() {
               className="dashboard-card"
               sx={{
                 height: "100%",
+                width: "20vw",
                 display: "flex",
                 flexDirection: "column",
                 transition: "transform 0.2s",

@@ -113,7 +113,7 @@ const ProjectList = () => {
       </Typography>
       <TableContainer component={Paper}>
         <Table>
-          <TableHead>
+          <TableHead sx={{bgcolor: "#cdc8c8ea"}}>
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
