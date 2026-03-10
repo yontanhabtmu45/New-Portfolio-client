@@ -26,9 +26,8 @@ const AddAdminForm = () => {
   const { auth } = useAuth();
 
   const roles = [
-    { value: 1, label: 'Super Admin' },
-    { value: 2, label: 'Manager' },
-    { value: 3, label: 'Editor' },
+    { value: 1, label: 'Admin' },
+    { value: 2, label: 'Manager' }
   ];
 
   const handleChange = (e) => {

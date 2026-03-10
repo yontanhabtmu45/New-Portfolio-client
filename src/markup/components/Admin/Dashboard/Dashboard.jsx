@@ -1,4 +1,5 @@
 import React from "react";
+import '../../../../App.css'
 import { Link } from "react-router";
 import {
   Container,
@@ -67,10 +68,10 @@ function Dashboard() {
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h3" component="h1" gutterBottom>
+        <Typography variant="h3" component="h1" gutterBottom sx={{ color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
           Admin Dashboard
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)' }}>
           Welcome to the admin dashboard. Here you can manage all aspects of the application.
         </Typography>
       </Box>
@@ -78,6 +79,7 @@ function Dashboard() {
         {dashboardItems.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Card
+              className="dashboard-card"
               sx={{
                 height: "100%",
                 display: "flex",
@@ -90,7 +92,7 @@ function Dashboard() {
               }}
             >
               <CardContent sx={{ flexGrow: 1, textAlign: "center" }}>
-                <Box sx={{ color: `${item.color}.main`, mb: 2 }}>
+                <Box className="dashboard-card-icon">
                   {item.icon}
                 </Box>
                 <Typography variant="h5" component="h2" gutterBottom>
@@ -107,6 +109,7 @@ function Dashboard() {
                   variant="contained"
                   color={item.color}
                   fullWidth
+                  className="admin-button"
                   sx={{ mt: "auto" }}
                 >
                   Go to {item.title}

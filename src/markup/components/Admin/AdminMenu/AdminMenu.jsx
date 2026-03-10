@@ -33,7 +33,7 @@ function AdminMenu() {
 
   return (
     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <Typography variant="h6" sx={{ p: 2, fontWeight: 'bold' }}>
+      <Typography variant="h6" sx={{ p: 2, fontWeight: 'bold', color: '#1e3c72' }}>
         Admin Menu
       </Typography>
       <Divider />
@@ -44,19 +44,20 @@ function AdminMenu() {
               component={Link}
               to={item.link}
               selected={location.pathname === item.link}
+              className="admin-menu-item"
               sx={{
                 '&.Mui-selected': {
-                  bgcolor: 'primary.light',
+                  bgcolor: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
                   '&:hover': {
-                    bgcolor: 'primary.main',
+                    bgcolor: 'linear-gradient(135deg, #2a5298 0%, #1e3c72 100%)',
                   },
                 },
               }}
             >
-              <ListItemIcon>
+              <ListItemIcon sx={{ color: location.pathname === item.link ? 'white' : '#1e3c72' }}>
                 {item.icon}
               </ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemText primary={item.text} sx={{ color: location.pathname === item.link ? 'white' : 'inherit' }} />
             </ListItemButton>
           </ListItem>
         ))}

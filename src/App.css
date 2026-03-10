@@ -1,0 +1,283 @@
+/* Admin Dashboard Styles */
+
+/* Global Admin Styles */
+.admin-dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.admin-sidebar {
+  background: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.admin-main-content {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border-color: rgba(30, 60, 114, 0.3);
+}
+
+.dashboard-card-icon {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover .dashboard-card-icon {
+  transform: scale(1.1);
+  box-shadow: 0 12px 35px rgba(30, 60, 114, 0.5);
+}
+
+/* Menu Styles */
+.admin-menu-item {
+  border-radius: 12px;
+  margin: 6px 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(30, 60, 114, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.admin-menu-item:hover::before {
+  left: 100%;
+}
+
+.admin-menu-item:hover {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+}
+
+.admin-menu-item.Mui-selected {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  box-shadow: 0 6px 25px rgba(30, 60, 114, 0.4);
+}
+
+.admin-menu-item.Mui-selected:hover {
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  transform: translateX(8px);
+}
+
+/* Form Styles */
+.admin-form-paper {
+  background: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.admin-form-field {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-form-field:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-color: rgba(30, 60, 114, 0.3);
+}
+
+.admin-form-field.Mui-focused {
+  background: white;
+  box-shadow: 0 8px 25px rgba(30, 60, 114, 0.2);
+  border-color: #1e3c72;
+}
+
+/* Button Styles */
+.admin-button {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 30px;
+  padding: 14px 28px;
+  font-weight: 600;
+  text-transform: none;
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.admin-button:hover::before {
+  left: 100%;
+}
+
+.admin-button:hover {
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  box-shadow: 0 12px 35px rgba(30, 60, 114, 0.4);
+  transform: translateY(-3px);
+}
+
+/* Table Styles */
+.admin-table {
+  background: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.admin-table-header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  font-weight: 600;
+}
+
+.admin-table-row:hover {
+  background: rgba(30, 60, 114, 0.08);
+  transition: all 0.3s ease;
+  transform: scale(1.01);
+}
+
+/* Alert Styles */
+.admin-alert {
+  border-radius: 15px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.admin-loading {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Typography */
+.admin-title {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-dashboard-container {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .dashboard-card {
+    margin-bottom: 20px;
+  }
+
+  .dashboard-card:hover {
+    transform: translateY(-5px) scale(1.01);
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .admin-dashboard-container {
+    background: linear-gradient(135deg, #0f1419 0%, #1a1a2e 100%);
+  }
+
+  .admin-main-content {
+    background: linear-gradient(135deg, #0f1419 0%, #1a1a2e 100%);
+  }
+
+  .dashboard-card {
+    background: rgba(15, 20, 25, 0.95);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .admin-form-paper {
+    background: rgba(15, 20, 25, 0.98);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .admin-form-field {
+    background: rgba(26, 26, 46, 0.9);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .admin-table {
+    background: rgba(15, 20, 25, 0.98);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .admin-sidebar {
+    background: rgba(15, 20, 25, 0.98);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
