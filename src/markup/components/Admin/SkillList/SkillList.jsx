@@ -37,12 +37,20 @@ const SkillList = () => {
   const { auth } = useAuth();
 
   const skillLevels = [
-    { value: 'Beginner', label: 'Beginner' },
-    { value: 'Intermediate', label: 'Intermediate' },
-    { value: 'Advanced', label: 'Advanced' },
-    { value: 'Expert', label: 'Expert' }
+    { value: "Beginner", label: "Beginner" },
+    { value: "Intermediate", label: "Intermediate" },
+    { value: "Advanced", label: "Advanced" },
+    { value: "Expert", label: "Expert" },
   ];
 
+  const categories = [
+    { value: "Frontend", label: "Frontend" },
+    { value: "Backend", label: "Backend" },
+    { value: "Database", label: "Database" },
+    { value: "DevOps", label: "DevOps" },
+    { value: "Mobile", label: "Mobile" },
+    { value: "Other", label: "Other" },
+  ];
 
   useEffect(() => {
     fetchSkills();
@@ -193,10 +201,18 @@ const SkillList = () => {
             fullWidth
             margin="normal"
             value={editForm.category}
-            onChange={(e) =>
-              setEditForm({ ...editForm, category: e.target.value })
-            }
-          />
+            variant="outlined"
+            // onChange={(e) =>
+            //   setEditForm({ ...editForm, category: e.target.value })
+            // }
+          >
+            {" "}
+            {categories.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setEditDialogOpen(false)}>Cancel</Button>

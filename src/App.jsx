@@ -11,6 +11,7 @@ import Projects from "./markup/pages/Admin/Projects";
 import AddProject from "./markup/pages/Admin/AddProject";
 import Skills from "./markup/pages/Admin/Skills";
 import AddSkill from "./markup/pages/Admin/AddSkill";
+import AddAdmin from "./markup/pages/Admin/AddAdmin";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       {/* <Route path="/" element={<Home/>}/> */}
       <Route path="/admin" element={<DashboardPage/>}/>
       <Route path="/admin/admins" element={<AdminsPage/>} />
+      <Route path="/admin/add-admin" element={<AddAdmin/>} />
       <Route path="/admin/projects" element={<Projects/>} />
       <Route path="/admin/add-project" element={<AddProject/>} />
       <Route path="/admin/skills" element={<Skills/>} />
