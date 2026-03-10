@@ -1,22 +1,67 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Divider,
+  Box,
+} from '@mui/material';
+import {
+  Dashboard as DashboardIcon,
+  Folder as FolderIcon,
+  Add as AddIcon,
+  Build as BuildIcon,
+  People as PeopleIcon,
+} from '@mui/icons-material';
 
 function AdminMenu() {
+  const location = useLocation();
+
+  const menuItems = [
+    { text: 'Dashboard', icon: <DashboardIcon />, link: '/admin' },
+    { text: 'Projects', icon: <FolderIcon />, link: '/admin/projects' },
+    { text: 'New Project', icon: <AddIcon />, link: '/admin/add-project' },
+    { text: 'Skills', icon: <BuildIcon />, link: '/admin/skills' },
+    { text: 'Add Skill', icon: <AddIcon />, link: '/admin/add-skill' },
+    { text: 'Admins', icon: <PeopleIcon />, link: '/admin/admins' },
+    { text: 'Add Admin', icon: <AddIcon />, link: '/admin/add-admin' },
+  ];
+
   return (
-    <section>
-      <div className="admin-menu">
-        <h2>Admin Menu</h2>
-      </div>
-      <div className="list-group">
-        <Link to="/admin" className="list-group-item">Dashboard</Link>
-        <Link to="/admin/projects" className="list-group-item">Projects</Link>
-        <Link to="/admin/add-project" className="list-group-item">New Projects</Link>
-        <Link to="/admin/skills" className="list-group-item">Skills</Link>
-        <Link to="/admin/add-skill" className="list-group-item">Add skills</Link>
-        <Link to="/admin/admins" className="list-group-item">Admins</Link>
-        <Link to="/admin/add-admin" className="list-group-item">Add admin</Link>
-      </div>
-    </section>
+    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <Typography variant="h6" sx={{ p: 2, fontWeight: 'bold' }}>
+        Admin Menu
+      </Typography>
+      <Divider />
+      <List>
+        {menuItems.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={item.link}
+              selected={location.pathname === item.link}
+              sx={{
+                '&.Mui-selected': {
+                  bgcolor: 'primary.light',
+                  '&:hover': {
+                    bgcolor: 'primary.main',
+                  },
+                },
+              }}
+            >
+              <ListItemIcon>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 }
 

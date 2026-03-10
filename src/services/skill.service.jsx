@@ -1,11 +1,18 @@
-const api_url = process.env.REACT_APP_API_URL;
+// const api_url = process.env.REACT_APP_API_URL;
+const api_url = "http://localhost:1011";
 
 // A function to send post request to create a new skill
 const createSkill = async (formData) => {
+  const data = new FormData();
+  Object.keys(formData).forEach(key => {
+    if (formData[key] !== null) {
+      data.append(key, formData[key]);
+    }
+  });
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
+    headers: {},
+    body: data,
   };
   const response = await fetch(`${api_url}/api//admin/skill`, requestOptions);
   return response;
@@ -36,10 +43,16 @@ const getSkillById = async (id, token) => {
 
 // a function to send put request to update a skill
 const updateSkill = async (id, formData, token) => {
+  const data = new FormData();
+  Object.keys(formData).forEach(key => {
+    if (formData[key] !== null) {
+      data.append(key, formData[key]);
+    }
+  });
   const requestOptions = {
     method: "PUT",
-    headers: { "Content-Type": "application/json", "x-access-token": token },
-    body: JSON.stringify(formData),
+    headers: { "x-access-token": token },
+    body: data,
   };
   const response = await fetch(
     `${api_url}/api/admin/skill/${id}`,
