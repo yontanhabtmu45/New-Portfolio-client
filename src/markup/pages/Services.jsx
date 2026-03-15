@@ -390,11 +390,11 @@ const Services = () => {
                 <Box sx={{ position: 'relative', display: 'inline-flex', mb: 1 }}>
                   <CircularProgress
                     variant="determinate"
-                    value={getSkillProgress(skill.level)}
+                    value={(skill.level)}
                     size={80}
                     thickness={4}
                     sx={{
-                      color: getSkillColor(skill.level),
+                      color: (skill.level),
                       '& .MuiCircularProgress-circle': {
                         strokeLinecap: 'round',
                       },
@@ -420,7 +420,7 @@ const Services = () => {
                         fontSize: '0.75rem'
                       }}
                     >
-                      {`${getSkillProgress(skill.level)}%`}
+                      {skill.level}
                     </Typography>
                   </Box>
                 </Box>
