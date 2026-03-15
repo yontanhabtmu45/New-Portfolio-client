@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -18,7 +18,8 @@ import {
   Step,
   StepLabel,
   Divider,
-  Avatar
+  Avatar,
+  CircularProgress
 } from '@mui/material';
 import {
   Code,
@@ -35,8 +36,69 @@ import {
 } from '@mui/icons-material';
 import Header from '../components/Header/header';
 import Footer from '../components/Footer/Footer';
+import skillService from '../../services/skill.service';
 
 const Services = () => {
+  const [skills, setSkills] = useState([]);
+  const [skillsLoading, setSkillsLoading] = useState(true);
+  const [skillsError, setSkillsError] = useState(null);
+
+  // Function to map skill levels to numerical values
+  const getSkillProgress = (level) => {
+    const levelNum = parseInt(level) || 0;
+    
+    // Assuming skill levels are stored as numbers 1-5
+    switch (levelNum) {
+      case 1:
+        return 25; // Beginner
+      case 2:
+        return 50; // Intermediate
+      case 3:
+        return 75; // Advanced
+      case 4:
+      case 5:
+        return 95; // Expert
+      default:
+        return 50; // Default to intermediate
+    }
+  };
+
+  // Function to get color based on skill level
+  const getSkillColor = (level) => {
+    const levelNum = parseInt(level) || 0;
+    switch (levelNum) {
+      case 1:
+        return '#ff9800'; // Orange - Beginner
+      case 2:
+        return '#2196f3'; // Blue - Intermediate
+      case 3:
+        return '#4caf50'; // Green - Advanced
+      case 4:
+      case 5:
+        return '#9c27b0'; // Purple - Expert
+      default:
+        return '#2196f3'; // Default blue
+    }
+  };
+
+  // Function to get skill level text
+  const getSkillLevelText = (level) => {
+    const levelNum = parseInt(level) || 0;
+    switch (levelNum) {
+      case 1:
+        return 'Beginner';
+      case 2:
+        return 'Intermediate';
+      case 3:
+        return 'Advanced';
+      case 4:
+      case 5:
+        return 'Expert';
+      default:
+        return 'Intermediate';
+    }
+  };
+
   const services = [
     {
       title: 'Full-Stack Web Development',
@@ -48,7 +110,7 @@ const Services = () => {
         'Content management systems',
         'Progressive web apps (PWAs)'
       ],
-      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'PostgreSQL']
+      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'MySQL']
     },
     {
       title: 'Frontend Development',
@@ -60,7 +122,7 @@ const Services = () => {
         'UI/UX implementation',
         'Performance optimization'
       ],
-      technologies: ['React', 'Vue.js', 'Material-UI', 'CSS3', 'JavaScript']
+      technologies: ['React', 'Angular.js', 'Material-UI', 'Bootstrap', 'Tailwind CSS']
     },
     {
       title: 'Backend Development',
@@ -72,20 +134,20 @@ const Services = () => {
         'Authentication & security',
         'Microservices architecture'
       ],
-      technologies: ['Node.js', 'Python', 'Express', 'Django', 'MySQL', 'Redis']
+      technologies: ['Node.js', 'PHP', 'Express', 'MongoDB', 'MySQL', 'Redis']
     },
-    {
-      title: 'Mobile App Development',
-      icon: <Smartphone sx={{ fontSize: 40 }} />,
-      description: 'Cross-platform mobile applications that work seamlessly across iOS and Android devices. Native performance with web technologies.',
-      features: [
-        'Cross-platform apps',
-        'Native mobile apps',
-        'App store deployment',
-        'Mobile UI/UX design'
-      ],
-      technologies: ['React Native', 'Flutter', 'iOS', 'Android']
-    },
+    // {
+    //   title: 'Mobile App Development',
+    //   icon: <Smartphone sx={{ fontSize: 40 }} />,
+    //   description: 'Cross-platform mobile applications that work seamlessly across iOS and Android devices. Native performance with web technologies.',
+    //   features: [
+    //     'Cross-platform apps',
+    //     'Native mobile apps',
+    //     'App store deployment',
+    //     'Mobile UI/UX design'
+    //   ],
+    //   technologies: ['React Native', 'Flutter', 'iOS', 'Android']
+    // },
     {
       title: 'Cloud Solutions',
       icon: <Cloud sx={{ fontSize: 40 }} />,
@@ -94,7 +156,7 @@ const Services = () => {
         'Cloud migration',
         'Infrastructure as Code',
         'Auto-scaling solutions',
-        'DevOps & CI/CD'
+        'CI/CD'
       ],
       technologies: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'Jenkins']
     },
@@ -108,20 +170,51 @@ const Services = () => {
         'API documentation',
         'Rate limiting & security'
       ],
-      technologies: ['GraphQL', 'REST', 'OAuth', 'Swagger', 'Postman']
+      technologies: ['REST', 'OAuth', 'Postman', ]
     }
   ];
 
-  const skills = [
-    { name: 'JavaScript/TypeScript', level: 'Expert', color: '#f7df1e' },
-    { name: 'React/Vue.js', level: 'Expert', color: '#61dafb' },
-    { name: 'Node.js', level: 'Expert', color: '#68a063' },
-    { name: 'Python', level: 'Advanced', color: '#3776ab' },
-    { name: 'Database Design', level: 'Advanced', color: '#336791' },
-    { name: 'Cloud Platforms', level: 'Advanced', color: '#ff9900' },
-    { name: 'DevOps', level: 'Intermediate', color: '#2396ed' },
-    { name: 'UI/UX Design', level: 'Intermediate', color: '#ff6b6b' }
-  ];
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        setSkillsLoading(true);
+        const response = await skillService.getAllSkills();
+        const data = await response.json();
+        if (data.status === 'success') {
+          // Transform backend data to match frontend expectations
+          const transformedSkills = data.data.map(skill => {
+            return {
+              id: skill.skill_id,
+              name: skill.skill_name,
+              level: skill.skill_level,
+              icon: skill.skill_icon,
+              category: skill.category
+            };
+          });
+          setSkills(transformedSkills);
+        } else {
+          setSkillsError('Failed to fetch skills');
+        }
+      } catch (err) {
+        setSkillsError('Error fetching skills');
+        console.error('Error fetching skills:', err);
+      } finally {
+        setSkillsLoading(false);
+      }
+    };
+
+    fetchSkills();
+  }, []);
+
+  // const skills = [
+  //   { name: 'JavaScript/TypeScript', level: 'Advanced', color: '#f7df1e' },
+  //   { name: 'React/Angular.js', level: 'Advanced', color: '#61dafb' },
+  //   { name: 'Node.js', level: 'Expert', color: '#68a063' },
+  //   { name: 'PHP', level: 'Advanced', color: '#3776ab' },
+  //   { name: 'Database Design', level: 'Advanced', color: '#336791' },
+  //   { name: 'Cloud Platforms', level: 'Advanced', color: '#ff9900' },
+  //   { name: 'UI/UX Design', level: 'Intermediate', color: '#ff6b6b' }
+  // ];
 
   const processSteps = [
     {
@@ -155,7 +248,7 @@ const Services = () => {
       <Header />
 
       {/* Hero Section */}
-      <Box
+      {/* <Box
         sx={{
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           color: 'white',
@@ -175,7 +268,7 @@ const Services = () => {
             From web applications to mobile apps, I deliver high-quality solutions tailored to your needs.
           </Typography>
         </Container>
-      </Box>
+      </Box> */}
 
       {/* Services Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
@@ -261,38 +354,91 @@ const Services = () => {
         <Typography variant="h6" align="center" color="text.secondary" sx={{ mb: 6 }}>
           Technologies and expertise I bring to every project
         </Typography>
-        <Grid container spacing={3}>
-          {skills.map((skill, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Box
-                sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  borderRadius: 2,
-                  boxShadow: 2,
-                  '&:hover': { transform: 'translateY(-4px)', transition: '0.3s' }
-                }}
-              >
+        
+        {skillsLoading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+            <CircularProgress />
+          </Box>
+        ) : skillsError ? (
+          <Box sx={{ textAlign: 'center', py: 8 }}>
+            <Typography variant="h6" color="error">
+              {skillsError}
+            </Typography>
+          </Box>
+        ) : (
+          <Grid container spacing={3}>
+            {skills.map((skill, index) => (
+              <Grid item xs={12} sm={6} md={3} key={skill.id || index}>
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    p: 3,
+                    borderRadius: 2,
+                    boxShadow: 2,
+                    '&:hover': { transform: 'translateY(-4px)', transition: '0.3s' }
+                  }}
+                >
                 <Typography
                   variant="h6"
                   sx={{
                     fontWeight: 'bold',
-                    mb: 1,
-                    color: skill.color
+                    mb: 2
                   }}
                 >
                   {skill.name}
                 </Typography>
-                <Chip
-                  label={skill.level}
-                  size="small"
-                  color={skill.level === 'Expert' ? 'success' : skill.level === 'Advanced' ? 'primary' : 'warning'}
-                  variant="filled"
-                />
+                <Box sx={{ position: 'relative', display: 'inline-flex', mb: 1 }}>
+                  <CircularProgress
+                    variant="determinate"
+                    value={getSkillProgress(skill.level)}
+                    size={80}
+                    thickness={4}
+                    sx={{
+                      color: getSkillColor(skill.level),
+                      '& .MuiCircularProgress-circle': {
+                        strokeLinecap: 'round',
+                      },
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                      position: 'absolute',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography
+                      variant="caption"
+                      component="div"
+                      sx={{
+                        fontWeight: 'bold',
+                        fontSize: '0.75rem'
+                      }}
+                    >
+                      {`${getSkillProgress(skill.level)}%`}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    mt: 1,
+                    fontWeight: 'medium',
+                    color: 'text.secondary'
+                  }}
+                >
+                  {getSkillLevelText(skill.level)}
+                </Typography>
               </Box>
             </Grid>
           ))}
         </Grid>
+        )}
       </Container>
 
       <Divider />
@@ -316,61 +462,9 @@ const Services = () => {
             </Step>
           ))}
         </Stepper>
-        <Grid container spacing={4}>
-          {processSteps.map((step, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Box sx={{ textAlign: 'center', p: 2 }}>
-                <Avatar sx={{ bgcolor: '#667eea', width: 60, height: 60, mx: 'auto', mb: 2 }}>
-                  {index + 1}
-                </Avatar>
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                  {step.label}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {step.description}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
       </Container>
 
       {/* Call to Action */}
-      <Box
-        sx={{
-          backgroundColor: '#f8f9fa',
-          py: 8,
-          textAlign: 'center'
-        }}
-      >
-        <Container maxWidth="md">
-          <Typography variant="h3" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
-            Ready to Start Your Project?
-          </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-            Let's discuss how I can help bring your ideas to life.
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button
-              variant="contained"
-              size="large"
-              component={Link}
-              to="/contact"
-              endIcon={<ArrowForward />}
-            >
-              Get In Touch
-            </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              component={Link}
-              to="/portfolio"
-            >
-              View My Work
-            </Button>
-          </Box>
-        </Container>
-      </Box>
 
       <Footer />
     </div>

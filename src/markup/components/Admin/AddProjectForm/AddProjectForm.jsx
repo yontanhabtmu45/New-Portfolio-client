@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import '../../../../App.css';
-import { TextField, Button, Box, Typography, Paper, Grid } from '@mui/material';
+import { 
+  TextField, 
+  Button, 
+  Box, 
+  Typography, 
+  Paper, 
+  Grid,
+  Card,
+  CardMedia,
+  IconButton,
+  Alert
+} from '@mui/material';
+import { CloudUpload, Delete, Image } from '@mui/icons-material';
 import { useAuth } from '../../../../Context/AuthContext';
 import projectService from '../../../../services/project.service';
 
@@ -14,6 +26,8 @@ const AddProjectForm = () => {
     tech_stack: '',
     category: ''
   });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -21,10 +35,52 @@ const AddProjectForm = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+    if (files && files[0]) {
+      // Handle file input
+      const file = files[0];
+      setFormData(prev => ({
+        ...prev,
+        [name]: file
+      }));
+      setSelectedImage(file);
+      
+      // Create image preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Handle text inputs
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
     setFormData(prev => ({
       ...prev,
-      [name]: files ? files[0] : value
+      project_image: null
     }));
+  };
+
+  const validateImage = (file) => {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    
+    if (!allowedTypes.includes(file.type)) {
+      return 'Please select a valid image file (JPEG, PNG, GIF, WebP)';
+    }
+    
+    if (file.size > maxSize) {
+      return 'Image size must be less than 5MB';
+    }
+    
+    return null;
   };
 
   const handleSubmit = async (e) => {
@@ -32,6 +88,16 @@ const AddProjectForm = () => {
     setLoading(true);
     setError(null);
     setSuccess(null);
+
+    // Validate image if selected
+    if (selectedImage) {
+      const imageError = validateImage(selectedImage);
+      if (imageError) {
+        setError(imageError);
+        setLoading(false);
+        return;
+      }
+    }
 
     try {
       const projectData = {
@@ -44,6 +110,7 @@ const AddProjectForm = () => {
 
       if (response.ok) {
         setSuccess('Project added successfully!');
+        // Reset form
         setFormData({
           title: '',
           description: '',
@@ -53,6 +120,8 @@ const AddProjectForm = () => {
           tech_stack: '',
           category: ''
         });
+        setSelectedImage(null);
+        setImagePreview(null);
       } else {
         setError(result.msg || 'Failed to add project');
       }
@@ -69,6 +138,16 @@ const AddProjectForm = () => {
         Add New Project
       </Typography>
       <Paper sx={{ p: 3, mt: 2 }}>
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+        {success && (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            {success}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
@@ -105,17 +184,72 @@ const AddProjectForm = () => {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Box>
-                <Typography variant="body1" gutterBottom>
-                  Project Image
-                </Typography>
+            <Grid item xs={12}>
+              <Typography variant="h6" gutterBottom>
+                Project Image
+              </Typography>
+              <Box sx={{ mb: 2 }}>
+                {!imagePreview ? (
+                  <Card 
+                    sx={{ 
+                      minHeight: 200, 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      border: '2px dashed #ccc',
+                      cursor: 'pointer',
+                      '&:hover': { borderColor: 'primary.main' }
+                    }}
+                    onClick={() => document.getElementById('project-image-input').click()}
+                  >
+                    <Box sx={{ textAlign: 'center', p: 3 }}>
+                      <CloudUpload sx={{ fontSize: 48, color: 'text.secondary', mb: 1 }} />
+                      <Typography variant="h6" color="text.secondary">
+                        Click to upload image
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        PNG, JPG, GIF up to 5MB
+                      </Typography>
+                    </Box>
+                  </Card>
+                ) : (
+                  <Card sx={{ position: 'relative' }}>
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={imagePreview}
+                      alt="Project preview"
+                      sx={{ objectFit: 'cover' }}
+                    />
+                    <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
+                      <IconButton
+                        onClick={handleRemoveImage}
+                        sx={{ 
+                          bgcolor: 'rgba(0,0,0,0.5)', 
+                          color: 'white',
+                          '&:hover': { bgcolor: 'rgba(0,0,0,0.7)' }
+                        }}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Box>
+                    <Box sx={{ p: 2, bgcolor: 'rgba(0,0,0,0.7)', color: 'white' }}>
+                      <Typography variant="body2">
+                        {selectedImage?.name}
+                      </Typography>
+                      <Typography variant="caption">
+                        {(selectedImage?.size / 1024 / 1024).toFixed(2)} MB
+                      </Typography>
+                    </Box>
+                  </Card>
+                )}
                 <input
+                  id="project-image-input"
                   type="file"
                   name="project_image"
                   onChange={handleChange}
                   accept="image/*"
-                  style={{ width: '100%' }}
+                  style={{ display: 'none' }}
                 />
               </Box>
             </Grid>

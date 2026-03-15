@@ -16,7 +16,15 @@ const Header = () => {
   ];
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'primary.main' }}>
+    <AppBar 
+      position="sticky" 
+      sx={{ 
+        backgroundColor: 'primary.main',
+        top: 0,
+        zIndex: 1100,
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}
+    >
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           My Portfolio

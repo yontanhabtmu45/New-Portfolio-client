@@ -46,7 +46,7 @@ const Home = () => {
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Header />
 
       {/* Hero Section */}
@@ -60,10 +60,10 @@ const Home = () => {
       >
         <Container maxWidth="md">
           <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-            Hi, I'm Your Name
+            Hi, I'm Yonatan Habtamu
           </Typography>
           <Typography variant="h5" component="h2" gutterBottom sx={{ mb: 4 }}>
-            Full Stack Developer & UI/UX Designer
+            Full Stack Developer 
           </Typography>
           <Typography variant="body1" sx={{ mb: 6, fontSize: '1.2rem' }}>
             I create beautiful, functional web applications that solve real-world problems.
@@ -100,205 +100,12 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* About Preview Section */}
-      {/* <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Grid container spacing={6} alignItems="center">
-          <Grid item xs={12} md={6}>
-            <Typography variant="h3" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
-              About Me
-            </Typography>
-            <Typography variant="body1" paragraph>
-              I'm a passionate full-stack developer with over 5 years of experience creating
-              digital solutions that make a difference. I specialize in modern web technologies
-              and love turning complex problems into simple, beautiful designs.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              When I'm not coding, you can find me exploring new technologies, contributing to
-              open-source projects, or sharing knowledge with the developer community.
-            </Typography>
-            <Button
-              variant="outlined"
-              component={Link}
-              to="/about"
-              endIcon={<ArrowForward />}
-              sx={{ mt: 2 }}
-            >
-              Learn More About Me
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                height: 300,
-                backgroundColor: '#f5f5f5',
-                borderRadius: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <Typography variant="h6" color="text.secondary">
-                Profile Image Placeholder
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container> */}
+      
 
-      <Divider />
+     
+        <Footer />
 
-      {/* Skills Preview Section */}
-      {/* <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h3" component="h2" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
-          My Skills
-        </Typography>
-        <Typography variant="h6" align="center" color="text.secondary" sx={{ mb: 6 }}>
-          Technologies and tools I work with
-        </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          {skills.map((skill, index) => (
-            <Grid item key={index}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  p: 3,
-                  borderRadius: 2,
-                  boxShadow: 2,
-                  '&:hover': { transform: 'translateY(-4px)', transition: '0.3s' }
-                }}
-              >
-                <Avatar sx={{ bgcolor: skill.color, width: 60, height: 60, mb: 2 }}>
-                  {skill.icon}
-                </Avatar>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                  {skill.name}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button
-            variant="outlined"
-            component={Link}
-            to="/services"
-            endIcon={<ArrowForward />}
-          >
-            View All Skills & Services
-          </Button>
-        </Box>
-      </Container> */}
-
-      <Divider />
-
-      {/* Featured Projects Section */}
-      {/* <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography variant="h3" component="h2" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Featured Projects
-        </Typography>
-        <Typography variant="h6" align="center" color="text.secondary" sx={{ mb: 6 }}>
-          Some of my recent work
-        </Typography>
-        <Grid container spacing={4}>
-          {featuredProjects.map((project, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  '&:hover': { boxShadow: 6, transition: '0.3s' }
-                }}
-              >
-                <Box
-                  sx={{
-                    height: 200,
-                    backgroundColor: '#f5f5f5',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <Typography variant="body2" color="text.secondary">
-                    Project Image
-                  </Typography>
-                </Box>
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h5" component="h3" gutterBottom sx={{ fontWeight: 'bold' }}>
-                    {project.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    {project.description}
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {project.technologies.map((tech, techIndex) => (
-                      <Chip
-                        key={techIndex}
-                        label={tech}
-                        size="small"
-                        variant="outlined"
-                      />
-                    ))}
-                  </Box>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    View Details
-                  </Button>
-                  <Button size="small" color="primary">
-                    Live Demo
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button
-            variant="contained"
-            component={Link}
-            to="/portfolio"
-            endIcon={<ArrowForward />}
-          >
-            View All Projects
-          </Button>
-        </Box>
-      </Container> */}
-
-      {/* Call to Action Section */}
-      {/* <Box
-        sx={{
-          backgroundColor: '#f8f9fa',
-          py: 8,
-          textAlign: 'center'
-        }}
-      >
-        <Container maxWidth="md">
-          <Typography variant="h3" component="h2" gutterBottom sx={{ fontWeight: 'bold' }}>
-            Let's Work Together
-          </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
-            I'm always interested in new opportunities and exciting projects.
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            component={Link}
-            to="/contact"
-            sx={{
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem'
-            }}
-          >
-            Get In Touch
-          </Button>
-        </Container>
-      </Box> */}
-
-      {/* <Footer /> */}
+      
     </div>
   );
 };
