@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button, Box, Typography, Alert } from "@mui/material";
 import { useAuth } from "../../../Context/AuthContext";
@@ -14,7 +14,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   // If already logged in, redirect to the admin dashboard
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLogged && auth?.admin_token) {
       navigate("/admin", { replace: true });
     }

@@ -1,12 +1,15 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
 import { DarkMode, LightMode } from '@mui/icons-material';
 import { useTheme as useCustomTheme } from '../../../ThemeContext';
+import { useAuth } from '../../../Context/AuthContext';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { mode, toggleTheme } = useCustomTheme();
+  const { auth, isLogged, logout } = useAuth();
 
   const navItems = [
     { label: 'Home', path: '/' },
@@ -14,6 +17,19 @@ const Header = () => {
     { label: 'Portfolio', path: '/portfolio' },
     { label: 'Contact', path: '/contact' },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  const getRoleName = (roleId) => {
+    switch (roleId) {
+      case 1: return 'Admin';
+      case 2: return 'Manager';
+      default: return 'User';
+    }
+  };
 
   return (
     <AppBar 
@@ -52,6 +68,20 @@ const Header = () => {
           >
             Resume
           </Button>
+          {isLogged && (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 2 }}>
+              <Typography variant="body1" sx={{ color: 'inherit' }}>
+                {auth.admin_name} ({getRoleName(auth.role_id)})
+              </Typography>
+              <Button
+                color="inherit"
+                onClick={handleLogout}
+                sx={{ textTransform: 'none' }}
+              >
+                Logout
+              </Button>
+            </Box>
+          )}
           <IconButton
             color="inherit"
             onClick={toggleTheme}
