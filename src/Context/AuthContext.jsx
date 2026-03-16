@@ -27,13 +27,14 @@ export const AuthProvider = ({ children }) => {
   }, [auth]);
 
   const login = (newAuth) =>{
-    localStorage.setItem("auth", JSON.stringify(newAuth));
-    setAuth(newAuth);
+    // Store the raw token; getAuth will decode it and provide role information
+    localStorage.setItem("admin", JSON.stringify(newAuth));
+    setAuth(getAuth());
   }
 
   const logout = () => {
-    localStorage.removeItem("auth");
-    setAuth(null);
+    localStorage.removeItem("admin");
+    setAuth({});
   }
 
   const value = {

@@ -9,14 +9,14 @@ import Services from "./markup/pages/Services";
 import Portfolio from "./markup/pages/Portfolio";
 import Contact from "./markup/pages/Contact";
 import DashboardPage from "./markup/pages/Admin/DashboardPage";
-import AdminsPage from "./markup/pages/Admin/AdminsPage"
-
-import privateAuthRoute from "./markup/components/Auth/PrivateAuthRoute"
+import AdminsPage from "./markup/pages/Admin/AdminsPage";
 import Projects from "./markup/pages/Admin/Projects";
 import AddProject from "./markup/pages/Admin/AddProject";
 import Skills from "./markup/pages/Admin/Skills";
 import AddSkill from "./markup/pages/Admin/AddSkill";
 import AddAdmin from "./markup/pages/Admin/AddAdmin";
+import Login from "./markup/components/Login/Login";
+import PrivateAuthRoute from "./markup/components/Auth/PrivateAuthRoute";
 
 function App() {
 
@@ -28,13 +28,65 @@ function App() {
         <Route path="/services" element={<Services/>}/>
         <Route path="/portfolio" element={<Portfolio/>}/>
         <Route path="/contact" element={<Contact/>}/>
-        <Route path="/admin" element={<DashboardPage/>}/>
-        <Route path="/admin/admins" element={<AdminsPage/>} />
-        <Route path="/admin/add-admin" element={<AddAdmin/>} />
-        <Route path="/admin/projects" element={<Projects/>} />
-        <Route path="/admin/add-project" element={<AddProject/>} />
-        <Route path="/admin/skills" element={<Skills/>} />
-        <Route path="/admin/add-skill" element={<AddSkill/>} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected admin routes (role-based) */}
+        <Route
+          path="/admin"
+          element={
+            <PrivateAuthRoute roles={[1, 2]}>
+              <DashboardPage />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/admins"
+          element={
+            <PrivateAuthRoute roles={[1]}>
+              <AdminsPage />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/add-admin"
+          element={
+            <PrivateAuthRoute roles={[1]}>
+              <AddAdmin />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/projects"
+          element={
+            <PrivateAuthRoute roles={[1, 2]}>
+              <Projects />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/add-project"
+          element={
+            <PrivateAuthRoute roles={[1, 2]}>
+              <AddProject />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/skills"
+          element={
+            <PrivateAuthRoute roles={[1, 2]}>
+              <Skills />
+            </PrivateAuthRoute>
+          }
+        />
+        <Route
+          path="/admin/add-skill"
+          element={
+            <PrivateAuthRoute roles={[1, 2]}>
+              <AddSkill />
+            </PrivateAuthRoute>
+          }
+        />
       </Routes>
     </ThemeProviderWrapper>
   )
