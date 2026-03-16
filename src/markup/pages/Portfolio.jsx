@@ -231,7 +231,7 @@ const Portfolio = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="200"
+                    height="250"
                     image={project.image}
                     alt={project.title}
                     sx={{
@@ -254,6 +254,7 @@ const Portfolio = () => {
                     <Typography
                       variant="body2"
                       color="text.secondary"
+                      width= "25vw"
                       paragraph
                     >
                       {project.description}
@@ -332,7 +333,7 @@ const Portfolio = () => {
                 alt={selectedProject.title}
                 sx={{
                   width: "100%",
-                  height: 250,
+                  height: "250",
                   objectFit: "cover",
                   borderRadius: 1,
                   mb: 3,

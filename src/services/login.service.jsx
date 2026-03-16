@@ -1,4 +1,5 @@
-const api_url = process.env.REACT_APP_API_URL;
+// const api_url = process.env.REACT_APP_API_URL;
+const api_url = "http://localhost:1011";
 
 // A function to send the login request to the server 
 const logIn = async (formData) => {

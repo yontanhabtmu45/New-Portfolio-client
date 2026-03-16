@@ -63,7 +63,7 @@ const Header = () => {
           <Button
             color="inherit"
             href="/resume.pdf"
-            download="My_Resume.pdf"
+            download = "resume.pdf"
             sx={{ ml: 2 }}
           >
             Resume

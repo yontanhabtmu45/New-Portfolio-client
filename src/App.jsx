@@ -66,7 +66,7 @@ function App() {
         <Route
           path="/admin/add-project"
           element={
-            <PrivateAuthRoute roles={[1, 2]}>
+            <PrivateAuthRoute roles={[1]}>
               <AddProject />
             </PrivateAuthRoute>
           }
@@ -82,7 +82,7 @@ function App() {
         <Route
           path="/admin/add-skill"
           element={
-            <PrivateAuthRoute roles={[1, 2]}>
+            <PrivateAuthRoute roles={[1]}>
               <AddSkill />
             </PrivateAuthRoute>
           }

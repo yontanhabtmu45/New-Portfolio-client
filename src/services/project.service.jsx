@@ -14,7 +14,7 @@ const createProject = async (formData) => {
     headers: {},
     body: data,
   };
-  const response = await fetch(`${api_url}/api//admin/project`, requestOptions);
+  const response = await fetch(`${api_url}/api/admin/project`, requestOptions);
   return response;
 };
 
